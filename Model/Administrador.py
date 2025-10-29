@@ -5,3 +5,11 @@ class Admnistrador:
         self.email = email
         self.cargo = cargo
         self.senha = senha
+
+    def login_admin():
+        return Admnistrador(
+            nome = "Admin",
+            cpf = "00000000000",
+            email = "admin",
+            cargo = "RH",
+            senha = "admin")

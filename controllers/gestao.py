@@ -1,10 +1,24 @@
 from Model.Medico import Medico
 from Model.Paciente import Paciente
+from Model.Administrador import Admnistrador
 from database.connection import DbConnection
 
 class Gestao:
     def __init__(self):
         self.db = DbConnection()
+
+    def entrar(self):
+        print("\n=== SGHSS Admin ===")
+        usuario_login = input("Usuário: ")
+        senha_login = input("Senha: ")
+         
+        admin = Admnistrador.login_admin()
+
+        if (usuario_login == admin.email) & (senha_login == admin.senha):
+            print("Login realizado com sucesso.")
+            self.menu()
+        else:
+            print("\nUsuário ou senha incorretos")
 
     def menu(self):
         while True:
