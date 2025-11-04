@@ -13,8 +13,8 @@ class Administrador:
         self.senha = senha
 
     def verificar_login(self, db):
-        sql = "SELECT senha FROM administrador WHERE cpf = %s AND senha = %s"
-        db.cursor.execute(sql, (self.cpf, self.senha))
+        sql = "SELECT senha FROM administrador WHERE cpf = %s"
+        db.cursor.execute(sql, (self.cpf,))
         resultado = db.cursor.fetchone()
 
         if resultado:
