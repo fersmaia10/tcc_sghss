@@ -2,7 +2,9 @@ from Model.Gestor import Gestor
 from Model.Medico import Medico
 from Model.Paciente import Paciente
 
-class Admnistrador:
+import bcrypt
+
+class Administrador:
     def __init__(self, nome, cpf, email, cargo, senha):
         self.nome = nome
         self.cpf = cpf
@@ -10,13 +12,15 @@ class Admnistrador:
         self.cargo = cargo
         self.senha = senha
 
-    def login_admin():
-        return Admnistrador(
-            nome = "Admin",
-            cpf = "00000000000",
-            email = "admin",
-            cargo = "RH",
-            senha = "admin")
+    def verificar_login(self, db):
+        sql = "SELECT senha FROM administrador WHERE cpf = %s AND senha = %s"
+        db.cursor.execute(sql, (self.cpf, self.senha))
+        resultado = db.cursor.fetchone()
+
+        if resultado:
+            senha_db = resultado[0].encode('utf-8')
+            return bcrypt.checkpw(self.senha.encode('utf-8'), senha_db)
+        return False
     
     def cadastrar_gestor(self, db):
         sql = "INSERT INTO gestor (nome, cpf, email, senha, cargo) VALUES (%s, %s, %s, %s, %s)"

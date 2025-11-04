@@ -1,6 +1,6 @@
 from Model.Medico import Medico
 from Model.Paciente import Paciente
-from Model.Administrador import Admnistrador
+from Model.Administrador import Administrador
 from Model.Gestor import Gestor
 from database.connection import DbConnection
 
@@ -13,13 +13,19 @@ class Gestao:
         usuario_login = input("Usuário: ")
         senha_login = input("Senha: ")
          
-        admin = Admnistrador.login_admin()
+        admin = Administrador(
+            nome=None,
+            cpf=usuario_login,
+            email=None,
+            cargo=None,
+            senha=senha_login
+        )
 
-        if (usuario_login == admin.email) & (senha_login == admin.senha):
-            print("Login realizado com sucesso.")
+        if admin.verificar_login(self.db):
+            print("\nLogin realizado com sucesso.")
             self.menu()
         else:
-            print("\nUsuário ou senha incorretos")
+            print("\nUsuário ou senha incorretos.")
 
     def menu(self):
         while True:
